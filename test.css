@@ -1,0 +1,118 @@
+
+
+.jumbotron{
+	text-align: center;
+	margin-left: 2rem;
+	margin-right: 2rem;
+	margin-bottom: 3rem;
+	 border-style: solid;
+ 	 border-width: 1px
+ 	 padding: 0;
+
+}
+
+.display-4 {
+	font-family: "Comic Sans MS";
+}
+
+#savedItems{
+	padding-left: 1rem;
+}
+
+#savedItems button{
+	height:29px;
+}
+
+.inputBTN {
+	font-size: 15px;
+	width: 65px;
+}
+
+#SearchBox {
+	width: 25rem;
+	text-align: center;
+	margin-right: 0;
+}
+
+
+
+.selected{
+	background-color: blue;
+}
+
+
+
+body {
+	margin-left: 2rem;
+	margin-right: 2rem;
+	background: url("https://coolbackgrounds.io/images/backgrounds/index/aqua-d9b59c89.png");
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.card {
+	padding-bottom: 2rem;
+	border: 0;
+	background: transparent;
+
+	
+}
+
+
+@media only screen and (max-width: 768px) and (min-width: max-width: 576px) {
+ .card-img-top {
+    width: 70%;
+    height: 30vw
+}
+
+.col{
+	padding-left: 6.5rem
+}
+
+.jumbotron{
+	
+	margin-bottom: 1rem;
+	
+}
+}
+
+@media screen and (max-width: 767px) and (min-width: 500px) {
+   .card-img-top {
+    height: 30vw
+}
+}
+
+
+
+@media (max-width: 675px) { 
+ #SearchBox {
+	width: 95%;
+	
+}
+}
+
+@media (min-width: 675px) { 
+ #SearchBox {
+	
+	margin-left: 4rem;
+	
+}
+}
+
+
+/* Landscape phones and down */
+@media (max-width: 575px) { 
+ .card-img-top {
+    width: 70%;
+    height: 50vw;
+    object-fit: cover;
+	} 
+	.containerCustom {
+	padding-left: 25%
+}
+
+}
