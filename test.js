@@ -1,3 +1,8 @@
+
+//------------------------------------
+//              VARIABLES
+//------------------------------------
+
 var searchBox = document.getElementById("SearchBox");
 var savedItems = document.getElementById("savedItems")
 var customContainer = document.querySelector(".containerCustom");
@@ -5,7 +10,6 @@ var savedItemsBTN = document.getElementsByClassName("savedItemBTN");
 var orBTN = document.getElementById("orBTN")
 var deleteBTN = document.getElementById("deleteBTN")
 var andBTN = document.getElementById("andBTN")
-console.log(savedItemsBTN)
 searchBox.value = "Search For Images";
 var firstInputFieldClick = 1
 var currentIndex = 0
@@ -15,6 +19,12 @@ var newQuery = false
 var nothingInStorage = 0;
 var saveBTN = document.getElementById("saveBTN");
 var itemsSelectedForAndOrQuery = []
+
+
+
+//------------------------------------
+//         INTITIAL FUNCTIONS
+//------------------------------------
 
 
 //We check if user has already saved some search values
@@ -55,6 +65,13 @@ function yHandler(){
 		renderHTML()
 	}	
 }
+
+
+
+
+//------------------------------------
+//              Functionality
+//------------------------------------
 
 
 // get all highlighted saved items and run the or operation on them
@@ -102,7 +119,6 @@ andBTN.addEventListener('click', function(){
 	var myMap = new Map(); //the map that will allocate an image id to the number of apperances it has across multiple search values
 	var maxLength = 0
 	var finalResultArr = [] // the array that will contain the images that appear in all phrases
-	//Refactor into Function
 	var allHighlightedButtons = document.getElementsByClassName("btn-dark");
 	if (allHighlightedButtons.length == 0) {
 		alert ("please highlight some of your saved items by selecting them first");
@@ -148,9 +164,17 @@ andBTN.addEventListener('click', function(){
 
 	//Should there be no shared images between the search values we'll update the user
 	if (data.length == 0) {
-		var str = ""
+		var str = " "
 		for (var i =0; i < allHighlightedButtons.length; i++) {
-			str = str + " , " + allHighlightedButtons[i].textContent
+			if (i == allHighlightedButtons.length -1) {
+				str = str + " and " + allHighlightedButtons[i].textContent
+			}
+			if (i==0) {
+				str = str + allHighlightedButtons[i].textContent 
+			}
+			if (i != 0 && i != allHighlightedButtons.length -1 ) {
+				str = str + ", " + allHighlightedButtons[i].textContent 
+			}
 		}
 		alert("No images are shared between" + str)
 	}
@@ -166,8 +190,6 @@ andBTN.addEventListener('click', function(){
 //delete all the selected saved items:
 deleteBTN.addEventListener('click',function(){
 	var allHighlightedButtons = document.getElementsByClassName("btn-dark");
-	console.log(allHighlightedButtons)
-
 	while(allHighlightedButtons.length != 0) {
 		localStorage.removeItem(allHighlightedButtons[0].textContent);
 		allHighlightedButtons[0].parentNode.removeChild(allHighlightedButtons[0]);	
@@ -179,7 +201,6 @@ deleteBTN.addEventListener('click',function(){
 
 //Save the phrases and the images to local memory for future use
 saveBTN.addEventListener('click', function(){
-	console.log("save clicked")
 	var str = searchBox.value
 	if (firstInputFieldClick != 1) {
 		if (localStorage.getItem(str) != null){
@@ -200,7 +221,6 @@ saveBTN.addEventListener('click', function(){
 
 //Call the flickr API each time the searchBox Text has changed
 searchBox.addEventListener('input', function(){
-	console.log("text changed")
 	data = []
 	var xhr = new XMLHttpRequest();
 	var searchVal = searchBox.value
@@ -212,7 +232,6 @@ searchBox.addEventListener('input', function(){
 			newQuery = true
 			var responce = JSON.parse(this.responseText)
 			var photos = responce["photos"]["photo"]
-			console.log (typeof photos)
 			data = photos
 			renderHTML()
 		}
@@ -221,15 +240,19 @@ searchBox.addEventListener('input', function(){
 
 }); 
 
+
+
+
+//------------------------------------
+//              GUI
+//------------------------------------
+
 //Update the images container to display the relevant data depending on application use
 function renderHTML() {
-	console.log ("rendering")
-	console.log (data)
 	var url = ""
 	var text = ""
 	var indexWhenCalled = currentIndex
 	var indexAddition = 0;
-	console.log (indexWhenCalled)
 	for (i = indexWhenCalled; i< indexWhenCalled + 12; i++){
 		if (typeof data[i] == 'undefined') {
 			break
@@ -279,7 +302,6 @@ function renderHTML() {
 //Load the saved item keys from memory and display them for user use
 function renderSavedItems(cmd) {
 	var i = 0;
-	console.log(cmd)
 	var text = ""
 	if (cmd == "initial") {
 		while (localStorage.key(i) != null) {
@@ -297,7 +319,6 @@ function renderSavedItems(cmd) {
 	savedItemsBTN = document.getElementsByClassName("savedItemBTN");
 		for (i = 0; i < savedItemsBTN.length; i++) {
    			 savedItemsBTN[i].addEventListener("click", function() {
-    			console.log("you clicked");
     			this.classList.toggle("btn-light");
     			this.classList.toggle("btn-dark");
 
